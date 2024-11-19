@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Http\Interfaces\GroupsContracts;
+use App\Http\Services\GroupsService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(GroupsContracts::class, function () {
+            return new GroupsService();
+        });
     }
 
     /**
