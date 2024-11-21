@@ -11,3 +11,4 @@ Route::get('/user', function (Request $request) {
 Route::post('/groups',[GroupsController::class,'store'])->name('create.groups');
 Route::post('/groups/{id}/participants',[GroupsController::class,'storeParticipant'])->name('create.groups.participants');
 Route::post('/groups/{id}/matches',[GroupsController::class, 'createSecretSantaMatches'])->name('create.secretSantaMatches');
+Route::get('/groups/{groupId}/participants/{participantId}/match',[GroupsController::class, 'getParticipantGiftReceiver'])->name('get.participant.giftReceiver');

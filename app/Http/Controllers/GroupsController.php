@@ -14,7 +14,7 @@ class GroupsController extends Controller
         protected GroupsContracts $groupsContracts
     ){}
 
-    public function store(Request  $request): JsonResponse
+    public function store(Request $request): JsonResponse
     {
         $group = $this->groupsContracts->addGroups(Group::GroupValidatedFromRequest($request));
         return response()->json([
@@ -39,5 +39,14 @@ class GroupsController extends Controller
             'message' => "Match added successfully",
             'data' => $match
         ], ResponseAlias::HTTP_CREATED);
+    }
+
+    public function getParticipantGiftReceiver(string $groupId, string $participantId): JsonResponse
+    {
+        $receiver = $this->groupsContracts->retrieveAssignedRecipient($groupId, $participantId);
+        return response()->json([
+            'message' => "Receiver added successfully",
+            'data' => $receiver
+        ], ResponseAlias::HTTP_OK);
     }
 }

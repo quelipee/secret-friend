@@ -7,7 +7,6 @@ use App\Http\Interfaces\GroupsContracts;
 use App\Models\Groups;
 use App\Models\MatchPair;
 use App\Models\Participants;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class GroupsService implements GroupsContracts
@@ -33,7 +32,6 @@ class GroupsService implements GroupsContracts
 
     public function generateSecretSantaPairs(string $groupId): array
     {
-//        dd(MatchPair::all()->toArray());
         $id = [];
         $relations = Groups::with('participants')->where('id',$groupId)->first()->toArray();
         foreach ($relations['participants'] as $participant) {
@@ -64,5 +62,15 @@ class GroupsService implements GroupsContracts
             $matches[] = $match;
         }
         return $matches;
+    }
+
+    public function retrieveAssignedRecipient(string $groupId, string $participantId) : Participants
+    {
+        $match = MatchPair::query()
+            ->where('group_id',$groupId)
+            ->where('giver_id',$participantId)
+            ->first();
+
+        return $match->receiver;
     }
 }

@@ -11,5 +11,6 @@ interface GroupsContracts
 {
     public function addGroups(Group $group): Groups;
     public function addParticipantToGroup(Request $request, string $groupId): Participants;
-    public function generateSecretSantaPairs(string $groupId);
+    public function generateSecretSantaPairs(string $groupId): array;
+    public function retrieveAssignedRecipient(string $groupId, string $participantId): Participants;
 }
